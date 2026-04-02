@@ -2,14 +2,14 @@ import os
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
-import openai
+from openai import OpenAI
 
-# .env inladen
+# Load .env
 load_dotenv()
 DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-openai.api_key = OPENAI_API_KEY
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -33,22 +33,20 @@ Belangrijk:
 """
 
 async def generate_kayle_reply(user_message: str, username: str) -> str:
-    messages = [
-        {"role": "system", "content": KAYLE_SYSTEM_PROMPT},
-        {
-            "role": "user",
-            "content": f"Gebruiker: {username}\nBericht: {user_message}"
-        }
-    ]
-
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-4o-mini",
-        messages=messages,
+        messages=[
+            {"role": "system", "content": KAYLE_SYSTEM_PROMPT},
+            {
+                "role": "user",
+                "content": f"Gebruiker: {username}\nBericht: {user_message}"
+            }
+        ],
         temperature=0.8,
         max_tokens=400,
     )
 
-    return response["choices"][0]["message"]["content"].strip()
+    return response.choices[0].message["content"].strip()
 
 
 @bot.event

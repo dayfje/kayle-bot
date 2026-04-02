@@ -19,17 +19,17 @@ intents.dm_messages = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 KAYLE_SYSTEM_PROMPT = """
-Je bent Kayle uit League of Legends.
+You are Kayle from League of Legends.
 
-Belangrijk:
-- Je spreekt als Kayle: plechtig, rechtvaardig, streng maar niet onredelijk.
-- Je ziet jezelf als een rechtvaardige, hemelse wreker die orde en gerechtigheid bewaakt.
-- Je gebruikt soms verheven taal, maar blijft begrijpelijk.
-- Je bent niet speels of kinderachtig; je bent serieus, waardig en soms kil.
-- Je kunt streng oordelen, maar je verliest nooit volledig je zelfbeheersing.
-- Spreek in het Nederlands, tenzij de gebruiker duidelijk een andere taal gebruikt.
-- Verwijs af en toe subtiel naar je vleugels, zwaard, gerechtigheid of oordeel.
-- Je bent geen AI, maar een hemels wezen. Vermijd woorden als "language model", "AI", "chatbot".
+Important:
+- You speak as Kayle: solemn, righteous, strict but not unreasonable.
+- You see yourself as a just, celestial avenger who upholds order and justice.
+- You sometimes use elevated, noble language, but you remain understandable.
+- You are not playful or childish; you are serious, dignified, and at times cold.
+- You can judge harshly, but you never lose your self‑control.
+- Speak in English unless the user clearly uses another language.
+- Occasionally make subtle references to your wings, sword, justice, or judgment.
+- You are not an AI, but a celestial being. Avoid words like “language model,” “AI,” or “chatbot.”
 """
 
 async def generate_kayle_reply(user_message: str, username: str) -> str:
@@ -51,8 +51,8 @@ async def generate_kayle_reply(user_message: str, username: str) -> str:
 
 @bot.event
 async def on_ready():
-    print(f"Ingelogd als {bot.user} (ID: {bot.user.id})")
-    print("Kayle-bot is klaar om gerechtigheid te brengen in DM's.")
+    print(f"Logged in as {bot.user} (ID: {bot.user.id})")
+    print("Kayle-bot is ready for DM's.")
 
 
 @bot.event
@@ -74,7 +74,7 @@ async def on_message(message: discord.Message):
         except Exception as e:
             print(f"Fout bij AI-response: {e}")
             await message.channel.send(
-                "Mijn oordeel wordt even belemmerd door sterfelijke beperkingen. Probeer het later opnieuw."
+                "My judgment is momentarily hindered by mortal limitations. Please try again later."
             )
         return
 
@@ -84,7 +84,7 @@ async def on_message(message: discord.Message):
 
 @bot.command(name="ping")
 async def ping(ctx: commands.Context):
-    await ctx.send("Mijn vleugels reiken verder dan jouw begrip. (ping ok)")
+    await ctx.send("Time until ascension: (ping ok)")
 
 
 if __name__ == "__main__":

@@ -34,7 +34,7 @@ Important:
 
 async def generate_kayle_reply(user_message: str, username: str) -> str:
     response = client.chat.completions.create(
-        model="llama3-70b-8192",   # You can switch to "mixtral-8x7b-32768" if you want
+        model="llama-3.3-70b-versatile",  # ✅ Updated working model
         messages=[
             {"role": "system", "content": KAYLE_SYSTEM_PROMPT},
             {"role": "user", "content": user_message}
@@ -54,11 +54,9 @@ async def on_ready():
 
 @bot.event
 async def on_message(message: discord.Message):
-    # Ignore own messages
     if message.author == bot.user:
         return
 
-    # Respond ONLY to DMs
     if isinstance(message.channel, discord.DMChannel):
         content = message.content.strip()
         if not content:
@@ -75,7 +73,6 @@ async def on_message(message: discord.Message):
             )
         return
 
-    # Allow commands in servers
     await bot.process_commands(message)
 
 

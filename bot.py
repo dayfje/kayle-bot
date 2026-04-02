@@ -46,7 +46,7 @@ async def generate_kayle_reply(user_message: str, username: str) -> str:
         max_tokens=400,
     )
 
-    return response.choices[0].message["content"].strip()
+    return response.choices[0].message.content.strip()
 
 
 @bot.event
